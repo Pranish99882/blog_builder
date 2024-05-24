@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
-import BlogTemplates from "./BlogTemplates"; // Import the BlogTemplates component
+import Templates from "./Templates"; // Import the BlogTemplates component
+import Category from "./Category";
+import Subcategory from "./Subcategory";
 
-const Appe = () => {
+const Blogbuilder = () => {
   const [open, setOpen] = useState(true);
   const [showTemplates, setShowTemplates] = useState(false); // State to control showing templates
+  const [showCategory, setShowCategory] = useState(false);
+  const [showSubCategory, setShowSubCategory] = useState(false);
+
   const Menus = [
     { title: "Create Template", src: "Chart_fill" },
-    { title: "Category", src: "Chat" },
-    { title: "See Blogs", src: "User", gap: true },
-    { title: "Setting", src: "Setting" },
+    { title: "Create Category", src: "Chat" },
+    { title: "Create Sub-Category", src: "User" },
+    { title: "Blogs", src: "" },
   ];
 
   const handleMenuClick = (title) => {
@@ -18,12 +23,23 @@ const Appe = () => {
     } else {
       setShowTemplates(false); // Hide templates for other menu items
     }
+
+    if (title === "Create Category") {
+      setShowCategory(true); // Show templates when "Create Template" is clicked
+    } else {
+      setShowCategory(false); // Hide templates for other menu items
+    }
+
+    if (title === "Create Sub-Category") {
+      setShowSubCategory(true); // Show templates when "Create Template" is clicked
+    } else {
+      setShowSubCategory(false); // Hide templates for other menu items
+    }
+
+
   };
 
-  const handleTemplateDoubleClick = () => {
-    setShowTemplates(false); // Hide templates on double-click
-  };
-
+  
   return (
     <div className="flex flex-col">
       <div className="px-10 py-5 flex justify-between  bg-slate-600 ">
@@ -66,7 +82,7 @@ const Appe = () => {
                   index === 0 && "bg-light-white"
                 } `}
                 onClick={() => handleMenuClick(Menu.title)} // Handle menu item click
-                onDoubleClick={handleTemplateDoubleClick} // Handle double click on Template
+               
               >
                 <img src={`./src/assets/${Menu.src}.png`} />
                 <span
@@ -79,11 +95,13 @@ const Appe = () => {
           </ul>
         </div>
         <div className="h-screen flex-1 p-7">
-          {showTemplates ? <BlogTemplates /> : <h1 className="text-2xl font-semibold ">Home Page</h1>}
+          {showTemplates ? <Templates /> : <h1 className="text-2xl font-semibold ">Home Page</h1>}
+          {showCategory ? <Category /> : <h1 className="text-2xl font-semibold ">Home Page</h1>}
+          {showSubCategory ? <Subcategory /> : <h1 className="text-2xl font-semibold ">Home Page</h1>}
         </div>
       </div>
     </div>
   );
 };
 
-export default Appe;
+export default Blogbuilder;
